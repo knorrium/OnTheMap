@@ -14,6 +14,7 @@
 		D7FA38E31C25C97500260AF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7FA38E11C25C97500260AF0 /* LaunchScreen.storyboard */; };
 		D7FA38EE1C25C97500260AF0 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA38ED1C25C97500260AF0 /* OnTheMapTests.swift */; };
 		D7FA38F91C25C97500260AF0 /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA38F81C25C97500260AF0 /* OnTheMapUITests.swift */; };
+		D7FA39071C25D7E300260AF0 /* logo-udacity-u.png in Resources */ = {isa = PBXBuildFile; fileRef = D7FA39061C25D7E300260AF0 /* logo-udacity-u.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D7FA38F41C25C97500260AF0 /* OnTheMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7FA38F81C25C97500260AF0 /* OnTheMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapUITests.swift; sourceTree = "<group>"; };
 		D7FA38FA1C25C97500260AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7FA39061C25D7E300260AF0 /* logo-udacity-u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-udacity-u.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				D7FA38D81C25C97500260AF0 /* AppDelegate.swift */,
 				D7FA38DA1C25C97500260AF0 /* ViewController.swift */,
+				D7FA39061C25D7E300260AF0 /* logo-udacity-u.png */,
 				D7FA38DC1C25C97500260AF0 /* Main.storyboard */,
 				D7FA38DF1C25C97500260AF0 /* Assets.xcassets */,
 				D7FA38E11C25C97500260AF0 /* LaunchScreen.storyboard */,
@@ -229,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7FA39071C25D7E300260AF0 /* logo-udacity-u.png in Resources */,
 				D7FA38E31C25C97500260AF0 /* LaunchScreen.storyboard in Resources */,
 				D7FA38E01C25C97500260AF0 /* Assets.xcassets in Resources */,
 				D7FA38DE1C25C97500260AF0 /* Main.storyboard in Resources */,
