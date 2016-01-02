@@ -14,6 +14,7 @@ import FBSDKShareKit
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
 
+    @IBOutlet weak var signupLink: UIButton!
     @IBAction func signupLinkAction(sender: UIButton) {
         let url : NSURL
         url = NSURL(string: "https://www.udacity.com/account/auth#!/signin")!
