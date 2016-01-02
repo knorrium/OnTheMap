@@ -11,6 +11,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
+import SwiftyJSON
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var txtLogin: UITextField!
@@ -20,9 +21,9 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBAction func loginButtonAction(sender: UIButton) {
         
-        if ((txtLogin.text != nil && txtPassword.text != nil)) {
+        if ((txtLogin.text!.isEmpty || txtPassword.text!.isEmpty)) {
             let alertController = UIAlertController(title: "On The Map", message:
-                "Please fill both the username and password fields", preferredStyle: UIAlertControllerStyle.Alert)
+                "Please fill both the username and password fields.", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
             
             self.presentViewController(alertController, animated: true, completion: nil)
@@ -44,16 +45,33 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
+
+            let newData = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            print(NSString(data: newData!, encoding: NSUTF8StringEncoding))
             
             if error != nil { // Handle error
+                let alertController = UIAlertController(title: "On The Map", message:
+                    "There was an error loggin in.", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
                 
                 return
                 
             }
             
-            let newData = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            let json = JSON(data: newData!)
             
-            print(NSString(data: newData!, encoding: NSUTF8StringEncoding))
+            if (json["status"] == 403) {
+                let alertController = UIAlertController(title: "On The Map", message:
+                    json["error"].string, preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+
+
+            }
             
         }
         
