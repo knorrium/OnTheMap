@@ -6,6 +6,7 @@ use_frameworks!
 
 target 'OnTheMap' do
 	pod 'FBSDKLoginKit'
+	pod 'SwiftyJSON'
 end
 
 target 'OnTheMapTests' do
