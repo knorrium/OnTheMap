@@ -90,7 +90,7 @@
             </objects>
             <point key="canvasLocation" x="428" y="-407"/>
         </scene>
-        <!--Item 2-->
+        <!--List-->
         <scene sceneID="Nu9-sq-m7c">
             <objects>
                 <viewController id="xnP-vb-6tb" sceneMemberID="viewController">
@@ -109,13 +109,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="smY-Yr-WYJ"/>
+                    <tabBarItem key="tabBarItem" title="List" id="smY-Yr-WYJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dhx-vw-jjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1286" y="962"/>
         </scene>
-        <!--Item 1-->
+        <!--Map-->
         <scene sceneID="kJh-Sd-eni">
             <objects>
                 <viewController id="f8t-KJ-gPn" sceneMemberID="viewController">
@@ -127,13 +127,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YeW-fR-Lpe">
-                                <rect key="frame" x="90" y="103" width="417" height="356"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YeW-fR-Lpe">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YeW-fR-Lpe" firstAttribute="leading" secondItem="SOd-N5-iUR" secondAttribute="leadingMargin" constant="-20" id="05o-yd-nvn"/>
+                            <constraint firstItem="YeW-fR-Lpe" firstAttribute="top" secondItem="0NO-uc-he3" secondAttribute="bottom" id="Cz7-RZ-PDu"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="YeW-fR-Lpe" secondAttribute="bottom" constant="49" id="D6m-Ds-bLy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YeW-fR-Lpe" secondAttribute="trailing" constant="-20" id="VrJ-xX-7sL"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="JKA-aH-Z6a"/>
+                    <tabBarItem key="tabBarItem" title="Map" id="JKA-aH-Z6a"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rgs-i0-pRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
