@@ -48,6 +48,9 @@
                                 <state key="normal" title="Don't have an account? Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signupLinkAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QZs-g6-aQ9"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="logo-udacity-u.png" translatesAutoresizingMaskIntoConstraints="NO" id="dzb-ha-hz2">
                                 <rect key="frame" x="225" y="68" width="150" height="100"/>

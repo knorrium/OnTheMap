@@ -14,6 +14,12 @@ import FBSDKShareKit
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
 
+    @IBAction func signupLinkAction(sender: UIButton) {
+        let url : NSURL
+        url = NSURL(string: "https://www.udacity.com/account/auth#!/signin")!
+        UIApplication.sharedApplication().openURL(url)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
