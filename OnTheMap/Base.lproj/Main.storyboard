@@ -83,7 +83,7 @@
                         <outlet property="signupLink" destination="WeH-1C-tGy" id="O3d-Q3-rzZ"/>
                         <outlet property="txtLogin" destination="Whb-tv-RWd" id="OcT-Y4-PP2"/>
                         <outlet property="txtPassword" destination="fcW-Am-e3i" id="YCD-61-n2c"/>
-                        <segue destination="Rqj-tU-gfM" kind="show" id="VNa-xV-ze1"/>
+                        <segue destination="Rqj-tU-gfM" kind="show" identifier="mainView" id="VNa-xV-ze1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A73A8C74E5C0049CEF692C58 /* Pods_OnTheMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922BE3B202D4385811F6B278 /* Pods_OnTheMap.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		D70A207A1C385D540035DE10 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A20791C385D540035DE10 /* MainViewController.swift */; };
 		D72B8CD11C25E8B9008261B8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CCD1C25E8B9008261B8 /* Bolts.framework */; };
 		D72B8CD21C25E8B9008261B8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CCE1C25E8B9008261B8 /* FBSDKCoreKit.framework */; };
 		D72B8CD31C25E8B9008261B8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CCF1C25E8B9008261B8 /* FBSDKLoginKit.framework */; };
@@ -43,6 +44,7 @@
 		3470E27B40660BF18567EFD5 /* Pods-OnTheMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnTheMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnTheMap/Pods-OnTheMap.debug.xcconfig"; sourceTree = "<group>"; };
 		7583C9A88CC79A8BB12A8568 /* Pods-OnTheMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnTheMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnTheMap/Pods-OnTheMap.release.xcconfig"; sourceTree = "<group>"; };
 		922BE3B202D4385811F6B278 /* Pods_OnTheMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnTheMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70A20791C385D540035DE10 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D72B8CCD1C25E8B9008261B8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "Pods/../build/Debug-iphoneos/Bolts.framework"; sourceTree = "<group>"; };
 		D72B8CCE1C25E8B9008261B8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		D72B8CCF1C25E8B9008261B8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				D7FA38DF1C25C97500260AF0 /* Assets.xcassets */,
 				D7FA38E11C25C97500260AF0 /* LaunchScreen.storyboard */,
 				D7FA38E41C25C97500260AF0 /* Info.plist */,
+				D70A20791C385D540035DE10 /* MainViewController.swift */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D70A207A1C385D540035DE10 /* MainViewController.swift in Sources */,
 				D7FA38DB1C25C97500260AF0 /* ViewController.swift in Sources */,
 				D7FA38D91C25C97500260AF0 /* AppDelegate.swift in Sources */,
 			);

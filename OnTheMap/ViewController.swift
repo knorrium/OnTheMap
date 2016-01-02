@@ -69,14 +69,25 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 NSOperationQueue.mainQueue().addOperationWithBlock {
                     self.presentViewController(alertController, animated: true, completion: nil)
                 }
-
-
             }
             
+            if (json["account"]["registered"] == true) {
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.performSegueWithIdentifier("mainView", sender: sender)
+                }
+            }
         }
         
         task.resume()
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "mainView" {
+            if let destinationVC = segue.destinationViewController as? MainViewController{
+
+            }
+        }
     }
     
     @IBOutlet weak var signupLink: UIButton!
