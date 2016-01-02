@@ -29,7 +29,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
 //        loginButton.readPermissions = ["public_profile", "email", "user_friends",]
         loginButton.delegate = self
         loginButton.center = self.view.center;
-        loginButton.frame.origin.y = self.view.frame.height - 40;
+        loginButton.frame.origin.y = signupLink.frame.origin.y + signupLink.frame.height + 20;
         self.view.addSubview(loginButton);
     }
 
