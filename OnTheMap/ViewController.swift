@@ -13,7 +13,54 @@ import FBSDKLoginKit
 import FBSDKShareKit
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+    @IBOutlet weak var txtLogin: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
 
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBAction func loginButtonAction(sender: UIButton) {
+        
+        if ((txtLogin.text != nil && txtPassword.text != nil)) {
+            let alertController = UIAlertController(title: "On The Map", message:
+                "Please fill both the username and password fields", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            return
+            
+        }
+
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        
+        request.HTTPMethod = "POST"
+        
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.HTTPBody = "{\"udacity\": {\"username\": \"account@domain.com\", \"password\": \"********\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            if error != nil { // Handle error
+                
+                return
+                
+            }
+            
+            let newData = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            
+            print(NSString(data: newData!, encoding: NSUTF8StringEncoding))
+            
+        }
+        
+        task.resume()
+        
+    }
+    
     @IBOutlet weak var signupLink: UIButton!
     @IBAction func signupLinkAction(sender: UIButton) {
         let url : NSURL
