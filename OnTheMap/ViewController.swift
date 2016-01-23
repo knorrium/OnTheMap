@@ -11,7 +11,6 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
-import SwiftyJSON
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var txtLogin: UITextField!
@@ -47,35 +46,32 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         let task = session.dataTaskWithRequest(request) { data, response, error in
 
             let newData = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData!, encoding: NSUTF8StringEncoding))
             
-            if error != nil { // Handle error
-                let alertController = UIAlertController(title: "On The Map", message:
-                    "There was an error loggin in.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
+            let parsedResult: AnyObject!
+            do {
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData!, options: .AllowFragments)
+                print(parsedResult)
+                if (parsedResult["status"]! !== nil) {
+                    if (parsedResult["status"].description == "403") {
+                        let alertController = UIAlertController(title: "On The Map", message:
+                            "\(parsedResult["error"])", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            self.presentViewController(alertController, animated: true, completion: nil)
+                        }
+                    }
+                } else {
+                    // No error, show the main view
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.performSegueWithIdentifier("mainView", sender: sender)
+                    })
+                }
+            } catch {
+                parsedResult = nil
+                print("Could not parse the data as JSON: '\(data)'")
                 return
-                
             }
-            
-            let json = JSON(data: newData!)
-            
-            if (json["status"] == 403) {
-                let alertController = UIAlertController(title: "On The Map", message:
-                    json["error"].string, preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                }
-            }
-            
-            if (json["account"]["registered"] == true) {
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.performSegueWithIdentifier("mainView", sender: sender)
-                }
-            }
+
         }
         
         task.resume()
@@ -84,7 +80,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mainView" {
-            if let destinationVC = segue.destinationViewController as? MainViewController{
+            if let destinationVC = segue.destinationViewController as? MainTabViewController{
 
             }
         }

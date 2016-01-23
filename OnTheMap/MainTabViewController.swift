@@ -1,17 +1,18 @@
 //
-//  MainViewController.swift
+//  MainTabViewController.swift
 //  OnTheMap
 //
-//  Created by Felipe Kuhn on 1/2/16.
+//  Created by Felipe Kuhn on 1/22/16.
 //  Copyright © 2016 Knorrium. All rights reserved.
 //
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainTabViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("MainTabViewController loaded")
 
         // Do any additional setup after loading the view.
     }
