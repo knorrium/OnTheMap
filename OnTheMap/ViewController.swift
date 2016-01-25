@@ -13,6 +13,10 @@ import FBSDKLoginKit
 import FBSDKShareKit
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    var udacityLogin: UdacityLogin?
+
+    
     @IBOutlet weak var txtLogin: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
 
@@ -28,55 +32,34 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.presentViewController(alertController, animated: true, completion: nil)
             
             return
-            
-        }
-
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        
-        request.HTTPMethod = "POST"
-        
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(txtLogin.text!)\", \"password\": \"\(txtPassword.text!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let session = NSURLSession.sharedSession()
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-
-            let newData = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            
-            let parsedResult: AnyObject!
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData!, options: .AllowFragments)
-                print(parsedResult)
-                if (parsedResult["status"]! !== nil) {
-                    if (parsedResult["status"].description == "403") {
-                        let alertController = UIAlertController(title: "On The Map", message:
-                            "\(parsedResult["error"])", preferredStyle: UIAlertControllerStyle.Alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
-                            self.presentViewController(alertController, animated: true, completion: nil)
-                        }
-                    }
-                } else {
-                    // No error, show the main view
+        } else {
+            print("WILL LOG IN")
+//            UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!)
+//            UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!)(username, password: password) { (success, errorMessage) in
+            UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!) {
+                (success, errorMessage) in
+//                self.setFormState(false, errorMessage: errorMessage)
+                if success {
+                    print("Success")
                     dispatch_async(dispatch_get_main_queue(), {
                         self.performSegueWithIdentifier("mainView", sender: sender)
                     })
+                } else {
+                    print("Failure")
+                    let alertController = UIAlertController(title: "On The Map", message:
+                        "\(errorMessage!)", preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
+
                 }
-            } catch {
-                parsedResult = nil
-                print("Could not parse the data as JSON: '\(data)'")
-                return
             }
 
+            
         }
-        
-        task.resume()
-        
     }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mainView" {
@@ -97,6 +80,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         addGradient()
+        udacityLogin = UdacityLogin.sharedInstance
         let loginButton = FBSDKLoginButton()
 //        loginButton.readPermissions = ["public_profile", "email", "user_friends",]
         loginButton.delegate = self
