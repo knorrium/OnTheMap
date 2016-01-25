@@ -11,6 +11,7 @@ import UIKit
 class TableViewController: UITableViewController {
 
     @IBAction func logoutAction(sender: UIBarButtonItem) {
+        UdacityLogin.sharedInstance.logout()
         dismissViewControllerAnimated(true, completion: {});
     }
     

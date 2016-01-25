@@ -11,6 +11,7 @@ import UIKit
 class MapViewController: UIViewController {
 
     @IBAction func logoutAction(sender: AnyObject) {
+        UdacityLogin.sharedInstance.logout()
         dismissViewControllerAnimated(true, completion: {});
     }
     
