@@ -15,7 +15,7 @@ import FBSDKShareKit
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var udacityLogin: UdacityLogin?
-
+    var fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
     
     @IBOutlet weak var txtLogin: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -34,32 +34,23 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             return
         } else {
             print("WILL LOG IN")
-//            UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!)
-//            UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!)(username, password: password) { (success, errorMessage) in
             UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!) {
                 (success, errorMessage) in
-//                self.setFormState(false, errorMessage: errorMessage)
                 if success {
                     print("Success")
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.performSegueWithIdentifier("mainView", sender: sender)
-                    })
+                    self.showMapViewController()
                 } else {
                     print("Failure")
                     let alertController = UIAlertController(title: "On The Map", message:
                         "\(errorMessage!)", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.presentViewController(alertController, animated: true, completion: nil)
-                    }
-
+                    })
                 }
             }
-
-            
         }
     }
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mainView" {
@@ -82,11 +73,15 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         addGradient()
         udacityLogin = UdacityLogin.sharedInstance
         let loginButton = FBSDKLoginButton()
-//        loginButton.readPermissions = ["public_profile", "email", "user_friends",]
+        loginButton.readPermissions = ["public_profile", "email", "user_friends",]
         loginButton.delegate = self
         loginButton.center = self.view.center;
         loginButton.frame.origin.y = signupLink.frame.origin.y + signupLink.frame.height + 20;
         self.view.addSubview(loginButton);
+
+        fbLoginManager.loginBehavior = FBSDKLoginBehavior.SystemAccount
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,9 +96,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         gradient.frame.size = self.view.frame.size
         gradient.colors = [UIColor.orangeColor().colorWithAlphaComponent(0.5).CGColor,UIColor.orangeColor().CGColor] //Or any colors
         self.view.layer.insertSublayer(gradient, atIndex: 0)
-        
     }
-
     
     // Facebook delegate methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
@@ -114,18 +107,34 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         if ((error) != nil)
         {
+            print("[FACEBOOK] - Error")
             print(error.description);
-            // Process error
         }
         else if result.isCancelled {
-            // Handle cancellations
+            print("[FACEBOOK] - Cancelled")
         }
         else {
-            // If you ask for multiple permissions at once, you
-            // should check if specific permissions missing
-            if result.grantedPermissions.contains("email")
-            {
-                // Do work
+            print("[FACEBOOK] - Else")
+            print("[FACEBOOK] - Else/Result " + result.description)
+            if result.grantedPermissions.contains("email") {
+                getFBUserData()
+                print("[FACEBOOK] - Else/Token: " + FBSDKAccessToken.currentAccessToken().tokenString)
+                UdacityLogin.sharedInstance.loginWithFacebook(FBSDKAccessToken.currentAccessToken().tokenString) {
+                    (success, errorMessage) in
+                    if (success) {
+                        print("[FACEBOOK] - Successful Login")
+                        self.showMapViewController()
+                    } else {
+                        print("[FACEBOOK] - Error during login")
+                        let alertController = UIAlertController(title: "On The Map", message:
+                            "\(errorMessage!)", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(alertController, animated: true, completion: nil)
+                        })
+
+                    }
+                }
             }
         }
     }
@@ -134,14 +143,19 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         print("User Logged Out")
     }
     
-    func returnUserData()
+    func showMapViewController() {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainTabView") as! MainTabViewController
+            self.presentViewController(viewController, animated: true, completion: nil)
+        })
+    }
+    
+    func getFBUserData()
     {
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            
             if ((error) != nil)
             {
-                // Process error
                 print("Error: \(error)")
             }
             else
@@ -149,8 +163,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("fetched user: \(result)")
                 let userName : NSString = result.valueForKey("name") as! NSString
                 print("User Name is: \(userName)")
-                let userEmail : NSString = result.valueForKey("email") as! NSString
-                print("User Email is: \(userEmail)")
             }
         })
     }

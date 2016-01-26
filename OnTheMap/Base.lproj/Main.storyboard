@@ -238,7 +238,7 @@
         <!--Main Tab View Controller-->
         <scene sceneID="ot5-YZ-2bL">
             <objects>
-                <tabBarController restorationIdentifier="mainView" storyboardIdentifier="mainView" automaticallyAdjustsScrollViewInsets="NO" id="HxI-Kx-qDL" customClass="MainTabViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabView" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HxI-Kx-qDL" customClass="MainTabViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="zNd-HY-99e">
                         <autoresizingMask key="autoresizingMask"/>
