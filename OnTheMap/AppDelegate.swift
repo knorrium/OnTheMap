@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var udacityLogin = [UdacityLogin]()
+    var students = [StudentInformation]()
     
     var locationManager: CLLocationManager!
 
