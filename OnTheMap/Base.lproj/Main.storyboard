@@ -132,6 +132,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="map" destination="DiK-F5-PRM" id="2xL-zm-AoQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GlN-wq-5Rx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -258,6 +261,6 @@
         <image name="logo-udacity-u.png" width="178" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sTD-cI-vrM"/>
+        <segue reference="Bec-su-hT8"/>
     </inferredMetricsTieBreakers>
 </document>
