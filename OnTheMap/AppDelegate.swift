@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var udacityLogin = [UdacityLogin]()
     var students = [StudentInformation]()
+    var loggedUser = StudentInformation(dictionary: ["uniqueKey": "__PLACEHOLDER__"])
     
     var locationManager: CLLocationManager!
 
