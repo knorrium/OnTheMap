@@ -52,12 +52,17 @@ class UdacityLogin: NSObject {
 
                     if (parsedResult["status"]! !== nil) {
                         if (parsedResult["status"].description == "403") {
-                            print("[Login With Credentials] " + parsedResult.description)
-                            self.appDelegate.loggedUser.uniqueKey = parsedResult.valueForKeyPath("account.key") as! String
-                            
                             completionHandler(success: false, errorMessage: parsedResult["error"].description)
                         }
                     } else {
+                        print("[Login With Credentials] " + parsedResult.description)
+                        let userId = parsedResult.valueForKeyPath("account.key") as! String
+                        self.appDelegate.loggedUser.uniqueKey = userId
+                        print("UNIQUE KEY: " + self.appDelegate.loggedUser.uniqueKey)
+                        self.getUserdata(userId)
+                        
+                        //                            self.appDelegate.loggedUser.uniqueKey = parsedResult.valueForKeyPath("account.key") as! String
+
                         completionHandler(success: true, errorMessage: nil)
                     }
                 } catch {
@@ -131,8 +136,10 @@ class UdacityLogin: NSObject {
                         }
                     } else {
                         print("[Login With Facebook] " + parsedResult.description)
-                        self.appDelegate.loggedUser.uniqueKey = parsedResult.valueForKeyPath("account.key") as! String
+                        let userId = parsedResult.valueForKeyPath("account.key") as! String
+                        self.appDelegate.loggedUser.uniqueKey = userId
                         print("UNIQUE KEY: " + self.appDelegate.loggedUser.uniqueKey)
+                        self.getUserdata(userId)
                         completionHandler(success: true, errorMessage: nil)
                     }
                 } catch {
@@ -140,6 +147,70 @@ class UdacityLogin: NSObject {
                 }
             }
         }
+        task.resume()
+    }
+    
+    func getUserdata(userId: String) {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/" + userId)!)
+        
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            if error != nil { // Handle error...
+                
+                return
+                
+            } else {
+                
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+                do {
+                    
+                let parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+
+//                print(NSString(data: parsedResult, encoding: NSUTF8StringEncoding))
+                let userId = parsedResult.valueForKeyPath("user.key") as? String
+                let firstName = parsedResult.valueForKeyPath("user.first_name") as? String
+                let lastName = parsedResult.valueForKeyPath("user.last_name") as? String
+                
+//                self.appDelegate.loggedUser.uniqueKey = userId!
+                self.appDelegate.loggedUser.firstName = firstName
+                self.appDelegate.loggedUser.lastName = lastName
+                }
+                catch {
+                    print("Could not parse the data as JSON: '\(data)'")
+                }
+            }
+            
+        }
+        
+        task.resume()
+    }
+    
+    func getUserLocation(userId: String) {
+        let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22" + userId + "%22%7D"
+        print("GET USER LOCATION: " + urlString)
+        let url = NSURL(string: urlString)
+        
+        let request = NSMutableURLRequest(URL: url!)
+        
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            if error != nil {
+                /* Handle error */
+                return
+            } else {
+                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+            }
+            
+        }
+        
         task.resume()
     }
 }
