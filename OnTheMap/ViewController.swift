@@ -16,6 +16,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var udacityLogin: UdacityLogin?
     var fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var txtLogin: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -161,7 +162,11 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             else
             {
                 print("fetched user: \(result)")
+                
                 let userName : NSString = result.valueForKey("name") as! NSString
+                let uniqueKey : String = result.valueForKey("id") as! String
+                self.appDelegate.loggedUser.uniqueKey = uniqueKey
+                print(self.appDelegate.loggedUser)
                 print("User Name is: \(userName)")
             }
         })
