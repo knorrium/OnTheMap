@@ -164,8 +164,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("fetched user: \(result)")
                 
                 let userName : NSString = result.valueForKey("name") as! NSString
-                let uniqueKey : String = result.valueForKey("id") as! String
-                self.appDelegate.loggedUser.uniqueKey = uniqueKey
                 print(self.appDelegate.loggedUser)
                 print("User Name is: \(userName)")
             }

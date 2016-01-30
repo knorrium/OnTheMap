@@ -12,6 +12,8 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 class UdacityLogin: NSObject {
+
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     static let sharedInstance = UdacityLogin()
     
     var session: NSURLSession
@@ -50,6 +52,9 @@ class UdacityLogin: NSObject {
 
                     if (parsedResult["status"]! !== nil) {
                         if (parsedResult["status"].description == "403") {
+                            print("[Login With Credentials] " + parsedResult.description)
+                            self.appDelegate.loggedUser.uniqueKey = parsedResult.valueForKeyPath("account.key") as! String
+                            
                             completionHandler(success: false, errorMessage: parsedResult["error"].description)
                         }
                     } else {
@@ -125,6 +130,9 @@ class UdacityLogin: NSObject {
                             completionHandler(success: false, errorMessage: parsedResult["error"].description)
                         }
                     } else {
+                        print("[Login With Facebook] " + parsedResult.description)
+                        self.appDelegate.loggedUser.uniqueKey = parsedResult.valueForKeyPath("account.key") as! String
+                        print("UNIQUE KEY: " + self.appDelegate.loggedUser.uniqueKey)
                         completionHandler(success: true, errorMessage: nil)
                     }
                 } catch {
