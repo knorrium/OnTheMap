@@ -7,9 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
 class SubmitViewController: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var txtLocation: UITextField!
+    
+    @IBAction func submitLocation(sender: AnyObject) {
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
