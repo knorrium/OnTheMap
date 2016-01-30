@@ -220,22 +220,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uTy-dY-DxK">
-                                <rect key="frame" x="245" y="60" width="111" height="62"/>
+                                <rect key="frame" x="245" y="60" width="111" height="61.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAg-V2-lGN">
-                                        <rect key="frame" x="0.0" y="0.0" width="111" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="111" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwg-FU-tho">
-                                        <rect key="frame" x="0.0" y="21" width="111" height="21"/>
+                                        <rect key="frame" x="0.0" y="20" width="111" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3b-aN-BrQ">
-                                        <rect key="frame" x="0.0" y="41" width="111" height="21"/>
+                                        <rect key="frame" x="0.0" y="41" width="111" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -250,7 +250,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76m-nx-9rs">
-                                <rect key="frame" x="0.0" y="220" width="600" height="30"/>
+                                <rect key="frame" x="20" y="220.5" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -263,7 +263,7 @@
                                 </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BP1-gx-rhD">
-                                <rect key="frame" x="20" y="259" width="560" height="245"/>
+                                <rect key="frame" x="20" y="258" width="560" height="245.5"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -274,9 +274,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="dbK-Qf-0Zy" secondAttribute="trailing" id="76G-vT-mNm"/>
                             <constraint firstItem="BP1-gx-rhD" firstAttribute="top" secondItem="76m-nx-9rs" secondAttribute="bottom" constant="8" id="BN6-To-R05"/>
                             <constraint firstItem="76m-nx-9rs" firstAttribute="top" secondItem="p3b-aN-BrQ" secondAttribute="bottom" constant="99" id="Ezh-us-kKQ"/>
+                            <constraint firstItem="76m-nx-9rs" firstAttribute="width" secondItem="BP1-gx-rhD" secondAttribute="width" id="Ksa-4r-tyf"/>
                             <constraint firstItem="hSe-LC-Pu9" firstAttribute="top" secondItem="BP1-gx-rhD" secondAttribute="bottom" constant="22" id="Lst-4G-CWC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BP1-gx-rhD" secondAttribute="trailing" id="VtW-az-CuJ"/>
-                            <constraint firstItem="76m-nx-9rs" firstAttribute="width" secondItem="EWD-nY-r8W" secondAttribute="width" id="c0k-d5-b32"/>
                             <constraint firstItem="hSe-LC-Pu9" firstAttribute="centerX" secondItem="EWD-nY-r8W" secondAttribute="centerX" id="cS3-oZ-YFk"/>
                             <constraint firstItem="uTy-dY-DxK" firstAttribute="centerX" secondItem="EWD-nY-r8W" secondAttribute="centerX" id="gf3-P5-Z25"/>
                             <constraint firstItem="76m-nx-9rs" firstAttribute="centerX" secondItem="EWD-nY-r8W" secondAttribute="centerX" id="nBc-P6-Jfr"/>
