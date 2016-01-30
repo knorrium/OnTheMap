@@ -163,18 +163,18 @@
 		D7FA38D71C25C97500260AF0 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
-				D71D9C591C53571800A62766 /* SubmitViewController.swift */,
 				D71D9C5B1C53FC9800A62766 /* Main.storyboard */,
 				D7FA38D81C25C97500260AF0 /* AppDelegate.swift */,
-				D7FA38DA1C25C97500260AF0 /* ViewController.swift */,
 				D7FA39061C25D7E300260AF0 /* logo-udacity-u.png */,
+				D7FA38DA1C25C97500260AF0 /* ViewController.swift */,
+				D71D9C4F1C52F8FD00A62766 /* MainTabViewController.swift */,
 				D71D9C551C53092500A62766 /* TableViewController.swift */,
 				D71D9C511C5307A400A62766 /* MapViewController.swift */,
+				D71D9C591C53571800A62766 /* SubmitViewController.swift */,
 				D7FA38DF1C25C97500260AF0 /* Assets.xcassets */,
 				D7FA38E11C25C97500260AF0 /* LaunchScreen.storyboard */,
 				D7FA38E41C25C97500260AF0 /* Info.plist */,
 				D78315521C4199080010DD26 /* UdacityLogin.swift */,
-				D71D9C4F1C52F8FD00A62766 /* MainTabViewController.swift */,
 				D7E75C941C5706EE00CC08EC /* LocationsClient.swift */,
 				D7E75C961C57094800CC08EC /* StudentInformation.swift */,
 				D7E75C9A1C5B3D3C00CC08EC /* StudentMapAnnotation.swift */,
