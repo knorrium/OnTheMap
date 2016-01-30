@@ -219,6 +219,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uTy-dY-DxK">
+                                <rect key="frame" x="245" y="60" width="111" height="61.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAg-V2-lGN">
+                                        <rect key="frame" x="0.0" y="0.0" width="111" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwg-FU-tho">
+                                        <rect key="frame" x="0.0" y="20" width="111" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3b-aN-BrQ">
+                                        <rect key="frame" x="0.0" y="41" width="111" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbK-Qf-0Zy">
                                 <rect key="frame" x="532" y="20" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
@@ -226,17 +249,34 @@
                                     <action selector="cancelAction:" destination="qiy-0B-3mL" eventType="touchUpInside" id="hOH-Ys-wAb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSe-LC-Pu9">
+                                <rect key="frame" x="222" y="443" width="156" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="Submit"/>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76m-nx-9rs">
+                                <rect key="frame" x="0.0" y="220.5" width="600" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dbK-Qf-0Zy" firstAttribute="top" secondItem="Uxy-c4-IZi" secondAttribute="bottom" id="2jC-lz-Q0j"/>
+                            <constraint firstItem="uTy-dY-DxK" firstAttribute="top" secondItem="Uxy-c4-IZi" secondAttribute="bottom" constant="40" id="4Wd-Gu-mdM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dbK-Qf-0Zy" secondAttribute="trailing" id="76G-vT-mNm"/>
+                            <constraint firstItem="76m-nx-9rs" firstAttribute="top" secondItem="p3b-aN-BrQ" secondAttribute="bottom" constant="99" id="Ezh-us-kKQ"/>
+                            <constraint firstItem="76m-nx-9rs" firstAttribute="width" secondItem="EWD-nY-r8W" secondAttribute="width" id="c0k-d5-b32"/>
+                            <constraint firstItem="hSe-LC-Pu9" firstAttribute="centerX" secondItem="EWD-nY-r8W" secondAttribute="centerX" id="cS3-oZ-YFk"/>
+                            <constraint firstItem="uTy-dY-DxK" firstAttribute="centerX" secondItem="EWD-nY-r8W" secondAttribute="centerX" id="gf3-P5-Z25"/>
+                            <constraint firstItem="76m-nx-9rs" firstAttribute="centerX" secondItem="EWD-nY-r8W" secondAttribute="centerX" id="nBc-P6-Jfr"/>
+                            <constraint firstItem="urq-sR-8dG" firstAttribute="top" secondItem="hSe-LC-Pu9" secondAttribute="bottom" constant="85" id="uxU-1M-Ze3"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Mq-78-rfk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3640" y="1822"/>
+            <point key="canvasLocation" x="3736" y="1984"/>
         </scene>
         <!--Main Tab View Controller-->
         <scene sceneID="ot5-YZ-2bL">
@@ -261,6 +301,6 @@
         <image name="logo-udacity-u.png" width="178" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bec-su-hT8"/>
+        <segue reference="sTD-cI-vrM"/>
     </inferredMetricsTieBreakers>
 </document>
