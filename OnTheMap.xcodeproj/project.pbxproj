@@ -17,7 +17,6 @@
 		D72B8CD11C25E8B9008261B8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CCD1C25E8B9008261B8 /* Bolts.framework */; };
 		D72B8CD21C25E8B9008261B8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CCE1C25E8B9008261B8 /* FBSDKCoreKit.framework */; };
 		D72B8CD31C25E8B9008261B8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CCF1C25E8B9008261B8 /* FBSDKLoginKit.framework */; };
-		D72B8CD41C25E8B9008261B8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B8CD01C25E8B9008261B8 /* FBSDKShareKit.framework */; };
 		D78315531C4199080010DD26 /* UdacityLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78315521C4199080010DD26 /* UdacityLogin.swift */; };
 		D7E75C951C5706EE00CC08EC /* LocationsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E75C941C5706EE00CC08EC /* LocationsClient.swift */; };
 		D7E75C971C57094800CC08EC /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E75C961C57094800CC08EC /* StudentInformation.swift */; };
@@ -94,7 +93,6 @@
 				D72B8CD11C25E8B9008261B8 /* Bolts.framework in Frameworks */,
 				D72B8CD21C25E8B9008261B8 /* FBSDKCoreKit.framework in Frameworks */,
 				D72B8CD31C25E8B9008261B8 /* FBSDKLoginKit.framework in Frameworks */,
-				D72B8CD41C25E8B9008261B8 /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
