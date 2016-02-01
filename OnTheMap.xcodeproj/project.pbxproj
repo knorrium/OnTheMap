@@ -57,7 +57,7 @@
 		D71D9C4F1C52F8FD00A62766 /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		D71D9C511C5307A400A62766 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D71D9C551C53092500A62766 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		D71D9C591C53571800A62766 /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubmitViewController.swift; path = ../SubmitViewController.swift; sourceTree = "<group>"; };
+		D71D9C591C53571800A62766 /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubmitViewController.swift; path = OnTheMap/SubmitViewController.swift; sourceTree = SOURCE_ROOT; };
 		D71D9C5C1C53FC9800A62766 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = OnTheMap/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D72B8CCD1C25E8B9008261B8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "Pods/../build/Debug-iphoneos/Bolts.framework"; sourceTree = "<group>"; };
 		D72B8CCE1C25E8B9008261B8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "Pods/../build/Debug-iphoneos/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
