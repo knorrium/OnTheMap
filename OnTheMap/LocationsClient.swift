@@ -35,51 +35,42 @@ class LocationsClient: NSObject {
             let parsedResult: AnyObject!
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-//                print(parsedResult)
+
                 if let location = parsedResult["results"] as? [NSDictionary] {
                    for studentInfo in location {
-//                        print(studentInfo)
                         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                         appDelegate.students.append(StudentInformation(dictionary: studentInfo))
-//                        print(appDelegate.students.count)
+                        print(appDelegate.students.count)
                     }
                 }
-                
-                
-                
                 completionHandler(success: true, errorMessage: nil)
             } catch {
                 print("Could not parse the data as JSON: '\(data)'")
                 completionHandler(success: false, errorMessage: "Error parsing JSON data")
             }
-//                print(NSString(data: data?, encoding: NSUTF8StringEncoding))
-            }
         }
+    }
         task.resume()
     }
     
-    func postLocation() {
+    func postLocation(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: String, longitude: String) {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
         
         request.HTTPMethod = "POST"
-        
+//                request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(token);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = "{\"uniqueKey\" : \"\(uniqueKey)\", \"firstName\" : \"\(firstName)\", \"lastName\" : \"\(lastName)\",\"mapString\" : \"\(mapString)\", \"mediaURL\" : \"\(mediaURL)\", \"latitude\" : \(latitude), \"longitude\" : \(longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
         
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            if error != nil { // Handle error…
+            if error != nil {
                 return
             } else {
                 print(data)
-                //                print(NSString(data: data, encoding: NSUTF8StringEncoding))
             }
         }
         task.resume()
