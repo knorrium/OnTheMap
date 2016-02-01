@@ -40,17 +40,12 @@ class UdacityLogin: NSObject {
                     completionHandler(success: false, errorMessage: "An unknown error occured")
                 }
             } else {
-                
                 let parsedResult: AnyObject!
                 do {
                     let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-                    print(NSString(data: newData, encoding: NSUTF8StringEncoding))
                     parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
-
                     if (parsedResult["status"]! !== nil) {
-                        if (parsedResult["status"].description == "403") {
-                            completionHandler(success: false, errorMessage: parsedResult["error"].description)
-                        }
+                        completionHandler(success: false, errorMessage: parsedResult.valueForKeyPath("error")?.description)
                     } else {
                         let userId = parsedResult.valueForKeyPath("account.key") as! String
                         self.appDelegate.loggedUser.uniqueKey = userId
@@ -67,7 +62,6 @@ class UdacityLogin: NSObject {
     }
     
     func logout() {
-        print("LOGGING OUT")
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil
@@ -87,7 +81,6 @@ class UdacityLogin: NSObject {
             }
             
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         task.resume()
         let loginManager = FBSDKLoginManager()
@@ -115,14 +108,10 @@ class UdacityLogin: NSObject {
 
                 do {
                     let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-                    print(NSString(data: newData, encoding: NSUTF8StringEncoding))
                     parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
                     
                     if (parsedResult["status"]! !== nil) {
-                        if (parsedResult["status"].description == "502" || parsedResult["status"].description == "403" || parsedResult["status"].description == "400") {
-
-                            completionHandler(success: false, errorMessage: parsedResult["error"].description)
-                        }
+                        completionHandler(success: false, errorMessage: parsedResult.valueForKeyPath("error")?.description)
                     } else {
                         let userId = parsedResult.valueForKeyPath("account.key") as! String
                         self.appDelegate.loggedUser.uniqueKey = userId
@@ -172,7 +161,6 @@ class UdacityLogin: NSObject {
     
     func getUserLocation(userId: String) {
         let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22" + userId + "%22%7D"
-        print("GET USER LOCATION: " + urlString)
         let url = NSURL(string: urlString)
         
         let request = NSMutableURLRequest(URL: url!)
@@ -188,7 +176,7 @@ class UdacityLogin: NSObject {
             if error != nil {
                 return
             } else {
-                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                
             }
         }
         task.resume()
