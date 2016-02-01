@@ -95,7 +95,7 @@
         <scene sceneID="NNX-0M-7eE">
             <objects>
                 <navigationController id="rD2-71-rez" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="owh-C8-mEr"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="owh-C8-mEr"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K5w-yS-mA3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -148,7 +148,7 @@
         <scene sceneID="3hZ-mT-nKc">
             <objects>
                 <navigationController id="VmH-js-knY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" id="euP-le-AGl"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="euP-le-AGl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="omA-1c-Gnz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -371,7 +371,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list" width="32" height="32"/>
         <image name="logo-udacity-u.png" width="178" height="192"/>
+        <image name="map" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sTD-cI-vrM"/>
