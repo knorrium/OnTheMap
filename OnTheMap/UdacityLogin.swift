@@ -24,8 +24,6 @@ class UdacityLogin: NSObject {
     }
 
     func login(username: NSString, password: NSString, completionHandler: (success: Bool, errorMessage: String?) -> Void) {
-        print("[UdacityLogin] - login")
-        
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         
         request.HTTPMethod = "POST"
@@ -36,7 +34,6 @@ class UdacityLogin: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             if error != nil {
-                print("Error")
                 if error?.domain == NSURLErrorDomain && error?.code == NSURLErrorNotConnectedToInternet {
                     completionHandler(success: false, errorMessage: "The Internet connection appears to be offline." )
                 } else {
@@ -55,18 +52,14 @@ class UdacityLogin: NSObject {
                             completionHandler(success: false, errorMessage: parsedResult["error"].description)
                         }
                     } else {
-                        print("[Login With Credentials] " + parsedResult.description)
                         let userId = parsedResult.valueForKeyPath("account.key") as! String
                         self.appDelegate.loggedUser.uniqueKey = userId
-                        print("UNIQUE KEY: " + self.appDelegate.loggedUser.uniqueKey)
                         self.getUserdata(userId)
-                        
-                        //                            self.appDelegate.loggedUser.uniqueKey = parsedResult.valueForKeyPath("account.key") as! String
 
                         completionHandler(success: true, errorMessage: nil)
                     }
                 } catch {
-                    print("Could not parse the data as JSON: '\(data)'")
+
                 }
             }
         }
@@ -90,8 +83,6 @@ class UdacityLogin: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
-                print("[UdacityLogin] - Error logging out")
-                print(error?.description)
                 return
             }
             
@@ -105,8 +96,6 @@ class UdacityLogin: NSObject {
 
     
     func loginWithFacebook(token: NSString, completionHandler: (success: Bool, errorMessage: String?) -> Void){
-        print("[UdacityLogin/Facebook] - LoginWithFacebook")
-        print("[UdacityLogin/Facebook] - LoginWithFacebook")
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         
         request.HTTPMethod = "POST"
@@ -119,7 +108,6 @@ class UdacityLogin: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             if error != nil {
-                print("[UdacityLogin/Facebook] - Error")
                 completionHandler(success: false, errorMessage: error?.description)
             } else {
 
@@ -132,18 +120,18 @@ class UdacityLogin: NSObject {
                     
                     if (parsedResult["status"]! !== nil) {
                         if (parsedResult["status"].description == "502" || parsedResult["status"].description == "403" || parsedResult["status"].description == "400") {
+
                             completionHandler(success: false, errorMessage: parsedResult["error"].description)
                         }
                     } else {
-                        print("[Login With Facebook] " + parsedResult.description)
                         let userId = parsedResult.valueForKeyPath("account.key") as! String
                         self.appDelegate.loggedUser.uniqueKey = userId
-                        print("UNIQUE KEY: " + self.appDelegate.loggedUser.uniqueKey)
                         self.getUserdata(userId)
+
                         completionHandler(success: true, errorMessage: nil)
                     }
                 } catch {
-                    print("Could not parse the data as JSON: '\(data)'")
+
                 }
             }
         }
@@ -157,28 +145,23 @@ class UdacityLogin: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            if error != nil { // Handle error...
-                
+            if error != nil {
                 return
-                
             } else {
                 
                 let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
                 do {
-                    
-                let parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                    let parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
 
-//                print(NSString(data: parsedResult, encoding: NSUTF8StringEncoding))
-                let userId = parsedResult.valueForKeyPath("user.key") as? String
-                let firstName = parsedResult.valueForKeyPath("user.first_name") as? String
-                let lastName = parsedResult.valueForKeyPath("user.last_name") as? String
-                
-//                self.appDelegate.loggedUser.uniqueKey = userId!
-                self.appDelegate.loggedUser.firstName = firstName
-                self.appDelegate.loggedUser.lastName = lastName
+                    let userId = parsedResult.valueForKeyPath("user.key") as? String
+                    let firstName = parsedResult.valueForKeyPath("user.first_name") as? String
+                    let lastName = parsedResult.valueForKeyPath("user.last_name") as? String
+                    
+                    self.appDelegate.loggedUser.firstName = firstName
+                    self.appDelegate.loggedUser.lastName = lastName
                 }
                 catch {
-                    print("Could not parse the data as JSON: '\(data)'")
+
                 }
             }
             
@@ -203,14 +186,11 @@ class UdacityLogin: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             if error != nil {
-                /* Handle error */
                 return
             } else {
                 print(NSString(data: data!, encoding: NSUTF8StringEncoding))
             }
-            
         }
-        
         task.resume()
     }
 }

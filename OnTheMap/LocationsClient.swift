@@ -29,7 +29,7 @@ class LocationsClient: NSObject {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
-        if error != nil { // Handle error...
+        if error != nil {
             completionHandler(success: false, errorMessage: "There was an error while fetching the location data")
         } else {
             let parsedResult: AnyObject!
@@ -45,7 +45,6 @@ class LocationsClient: NSObject {
                 }
                 completionHandler(success: true, errorMessage: nil)
             } catch {
-                print("Could not parse the data as JSON: '\(data)'")
                 completionHandler(success: false, errorMessage: "Error parsing JSON data")
             }
         }
@@ -68,17 +67,14 @@ class LocationsClient: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             if error != nil {
-                print("[PostLocation] ERROR")
                 completionHandler(success: false, errorMessage: error?.description)
             } else {
-                print("[PostLocation] SUCCESS")
                 do {
                     let parsedResult: AnyObject!
                     parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                     print(parsedResult)
                     completionHandler(success: true, errorMessage: nil)
                 } catch {
-                    print("Could not parse the data as JSON: '\(data)'")
                     completionHandler(success: false, errorMessage: "Error parsing JSON data")
                 }
             }

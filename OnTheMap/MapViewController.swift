@@ -78,75 +78,55 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.view.addSubview(myActivityIndicator)
         
         LocationsClient.sharedInstance.fetchLocations() { (success, errorMessage) in
-            print("[FetchLocations] START")
-            //            print(success)
-            //            print(errorMessage)
             if success {
-                print("[FetchLocations] Success")
-            } else {
-                print("[FetchLocations] Failure")
-            }
-            print("[FetchLocations] END")
-            
-            for studentInformation in self.appDelegate.students {
-                //                print(studentInformation)
-                //                print(studentInformation.latitude)
-                //                print(studentInformation.longitude)
-                if (studentInformation.latitude != nil && studentInformation.longitude != nil) {
-                    //                    print("[MapViewController] - InsertPin")
-                    
-                    let coordinate = CLLocationCoordinate2D(
-                        latitude: studentInformation.latitude as! Double!,
-                        longitude: studentInformation.longitude as! Double!
-                    )
-                    let title = studentInformation.firstName! + " " + studentInformation.lastName!
-                    let subtitle = studentInformation.mediaURL
-                    let annotation = StudentMapAnnotation(title: title, coordinate: coordinate, subtitle: subtitle!)
-                    //                    self.map.addAnnotation(annotation)
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.map.addAnnotation(annotation)
+                for studentInformation in self.appDelegate.students {
+                    if (studentInformation.latitude != nil && studentInformation.longitude != nil) {
+                        
+                        let coordinate = CLLocationCoordinate2D(
+                            latitude: studentInformation.latitude as! Double!,
+                            longitude: studentInformation.longitude as! Double!
+                        )
+                        let title = studentInformation.firstName! + " " + studentInformation.lastName!
+                        let subtitle = studentInformation.mediaURL
+                        let annotation = StudentMapAnnotation(title: title, coordinate: coordinate, subtitle: subtitle!)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.map.addAnnotation(annotation)
+                        }
                     }
                 }
+            } else {
+
             }
-            
         }
         myActivityIndicator.stopAnimating()
 
     }
 
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        print(error.description)
+
     }
 
     //Source: https://www.hackingwithswift.com/read/19/2/up-and-running-with-mapkit
     //Source: https://www.hackingwithswift.com/read/19/3/annotations-and-accessory-views-mkpinannotationview
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        // 1
         let identifier = "StudentMapAnnotation"
         
-        // 2
         if annotation.isKindOfClass(StudentMapAnnotation.self) {
-            // 3
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
             
             if annotationView == nil {
-                //4
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView!.canShowCallout = true
                 
-                // 5
                 let btn = UIButton(type: .DetailDisclosure)
                 annotationView!.rightCalloutAccessoryView = btn
             } else {
-                // 6
                 annotationView!.annotation = annotation
             }
             
             return annotationView
         }
-        
-        // 7
         return nil
     }
     
@@ -196,12 +176,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        print("[MapView/LocationManager] didUpdateLocations")
         let location = locations.last! as CLLocation
         
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        print("[MapView/LocationManager] " + region.center.latitude.description + " " + region.center.longitude.description)
+        
         self.map.setRegion(region, animated: true)
     }
     

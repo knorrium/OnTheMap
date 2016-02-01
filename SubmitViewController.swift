@@ -80,7 +80,6 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
         print(studentInfo)
         LocationsClient.sharedInstance.postLocation(studentInfo) { (success, errorMessage) in
             if success {
-                print("[PostLocation] Success")
                 let alertController = UIAlertController(title: "On The Map", message:
                     "Your location has been successfully submitted!", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
@@ -90,13 +89,12 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
 
                 self.dismissViewControllerAnimated(true, completion: {});
             } else {
-                print("[PostLocation] Failure")
+
             }
         }
     }
     
     func requestMediaURL(completionHandler: (success: Bool, mediaURL: String?) -> Void){
-        print("REQUESTING MEDIA URL")
         var alertController:UIAlertController?
         alertController = UIAlertController(title: "On The Map",
             message: "Please enter a website URL",
@@ -128,7 +126,6 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("Submit Location View")
         mapView.delegate = self
     }
 

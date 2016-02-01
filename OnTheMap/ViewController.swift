@@ -34,14 +34,11 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             
             return
         } else {
-            print("WILL LOG IN")
             UdacityLogin.sharedInstance.login(txtLogin.text!, password: txtPassword.text!) {
                 (success, errorMessage) in
                 if success {
-                    print("Success")
                     self.showMapViewController()
                 } else {
-                    print("Failure")
                     let alertController = UIAlertController(title: "On The Map", message:
                         "\(errorMessage!)", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
@@ -101,32 +98,22 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // Facebook delegate methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("Coming back from Facebook signin")
-        print("Error: \(error)")
-        print("result: \(result) isCancelled: \(result.isCancelled) token: \(result.token)")
-        print("declinedPermissions: \(result.declinedPermissions) grantedPermissions: \(result.grantedPermissions)")
         
         if ((error) != nil)
         {
-            print("[FACEBOOK] - Error")
             print(error.description);
         }
         else if result.isCancelled {
-            print("[FACEBOOK] - Cancelled")
+
         }
         else {
-            print("[FACEBOOK] - Else")
-            print("[FACEBOOK] - Else/Result " + result.description)
             if result.grantedPermissions.contains("email") {
                 getFBUserData()
-                print("[FACEBOOK] - Else/Token: " + FBSDKAccessToken.currentAccessToken().tokenString)
                 UdacityLogin.sharedInstance.loginWithFacebook(FBSDKAccessToken.currentAccessToken().tokenString) {
                     (success, errorMessage) in
                     if (success) {
-                        print("[FACEBOOK] - Successful Login")
                         self.showMapViewController()
                     } else {
-                        print("[FACEBOOK] - Error during login")
                         let alertController = UIAlertController(title: "On The Map", message:
                             "\(errorMessage!)", preferredStyle: UIAlertControllerStyle.Alert)
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
@@ -141,7 +128,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out")
+
     }
     
     func showMapViewController() {
@@ -157,15 +144,11 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             if ((error) != nil)
             {
-                print("Error: \(error)")
+
             }
             else
             {
-                print("fetched user: \(result)")
-                
                 let userName : NSString = result.valueForKey("name") as! NSString
-                print(self.appDelegate.loggedUser)
-                print("User Name is: \(userName)")
             }
         })
     }

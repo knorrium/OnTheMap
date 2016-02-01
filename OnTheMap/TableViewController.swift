@@ -19,13 +19,12 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         LocationsClient.sharedInstance.fetchLocations() { (success, errorMessage) in
             if success {
-                print("[FetchLocations] Success")
                 self.students = self.applicationDelegate?.students
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                 })
             } else {
-                print("[FetchLocations] Failure")
+
             }
         }
     }
@@ -41,7 +40,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("Table View")
         applicationDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         students = applicationDelegate?.students
     }
