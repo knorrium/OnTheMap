@@ -85,11 +85,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-OnTheMap/Bolts.framework"
   install_framework "Pods-OnTheMap/FBSDKCoreKit.framework"
   install_framework "Pods-OnTheMap/FBSDKLoginKit.framework"
-  install_framework "Pods-OnTheMap/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-OnTheMap/Bolts.framework"
   install_framework "Pods-OnTheMap/FBSDKCoreKit.framework"
   install_framework "Pods-OnTheMap/FBSDKLoginKit.framework"
-  install_framework "Pods-OnTheMap/SwiftyJSON.framework"
 fi
