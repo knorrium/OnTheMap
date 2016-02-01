@@ -191,7 +191,11 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="🔄" id="69H-uf-aUv"/>
+                            <barButtonItem title="🔄" id="69H-uf-aUv">
+                                <connections>
+                                    <action selector="refreshAction:" destination="32g-TV-LBK" id="zAp-dg-7CI"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="📍" id="OVL-r1-Kbx">
                                 <connections>
                                     <segue destination="qiy-0B-3mL" kind="presentation" id="sTD-cI-vrM"/>
@@ -199,6 +203,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="zm2-40-nGS" id="Xbk-Ed-vmy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ale-cv-vsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationBar contentMode="scaleToFill" id="NFr-Pe-dcb">
@@ -319,6 +326,6 @@
         <image name="logo-udacity-u.png" width="178" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bec-su-hT8"/>
+        <segue reference="sTD-cI-vrM"/>
     </inferredMetricsTieBreakers>
 </document>

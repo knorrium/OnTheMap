@@ -10,6 +10,26 @@ import UIKit
 
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet var tableView: UITableView!
+    
+    @IBAction func refreshAction(sender: AnyObject) {
+        applicationDelegate?.students.removeAll()
+        students?.removeAll()
+        tableView.reloadData()
+
+        LocationsClient.sharedInstance.fetchLocations() { (success, errorMessage) in
+            if success {
+                print("[FetchLocations] Success")
+                self.students = self.applicationDelegate?.students
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            } else {
+                print("[FetchLocations] Failure")
+            }
+        }
+    }
+    
     var applicationDelegate: AppDelegate?
     var students: [StudentInformation]?
     
