@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func refreshAction(sender: AnyObject) {
         appDelegate.students.removeAll()
@@ -27,23 +27,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         dismissViewControllerAnimated(true, completion: {});
     }
 
-    //Source: http://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
-    let regionRadius: CLLocationDistance = 1000
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-            regionRadius * 2.0, regionRadius * 2.0)
-        map.setRegion(coordinateRegion, animated: true)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         map.delegate = self
-        
-        let locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization();
 
         fetchStudentLocations()
     }
@@ -76,10 +63,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
         }
         myActivityIndicator.stopAnimating()
-
-    }
-
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 
     }
 
@@ -124,40 +107,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
         }
 
-    }
-    
-    
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        switch status {
-        case .NotDetermined:
-            locationManager.requestAlwaysAuthorization()
-            break
-        case .AuthorizedWhenInUse:
-            locationManager.startUpdatingLocation()
-            break
-        case .AuthorizedAlways:
-            locationManager.startUpdatingLocation()
-            break
-        case .Restricted:
-            // restricted by e.g. parental controls. User can't enable Location Services
-            break
-        case .Denied:
-            // user denied your app access to Location Services, but can grant access from Settings.app
-            break
-        default:
-            break
-        }
-    }
-    
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        let location = locations.last! as CLLocation
-        
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        
-        self.map.setRegion(region, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
