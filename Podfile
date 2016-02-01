@@ -6,6 +6,7 @@ use_frameworks!
 
 target 'OnTheMap' do
 	pod 'FBSDKLoginKit'
+	pod 'FBSDKCoreKit'
 end
 
 target 'OnTheMapTests' do

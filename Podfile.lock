@@ -18,6 +18,7 @@ PODS:
     - FBSDKCoreKit
 
 DEPENDENCIES:
+  - FBSDKCoreKit
   - FBSDKLoginKit
 
 SPEC CHECKSUMS:
