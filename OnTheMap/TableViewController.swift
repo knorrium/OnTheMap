@@ -90,6 +90,13 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                     // Source: https://www.hackingwithswift.com/example-code/system/how-to-open-a-url-in-safari
                     if let navigationUrl = NSURL(string: url) {
                         UIApplication.sharedApplication().openURL(navigationUrl)
+                    } else {
+                        let alertController = UIAlertController(title: "On The Map", message:
+                            "The URL provided by the student is invalid", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(alertController, animated: true, completion: nil)
+                        })
                     }
                 }
             }
