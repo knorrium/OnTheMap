@@ -101,6 +101,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
             }
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     /*
     // MARK: - Navigation
