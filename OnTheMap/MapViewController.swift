@@ -38,40 +38,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("Map View")
 
         map.delegate = self
         
         let locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization();
-        
-//        var CLAuthStatus = CLLocationManager.authorizationStatus()
-//        print("[MapView] - CLAuthStatus " + CLAuthStatus.rawValue.description)
-//        if(CLAuthStatus == CLAuthorizationStatus.NotDetermined) {
-//            print("[MapView] - Requesting Location")
-//            locationManager.requestAlwaysAuthorization();
-//            locationManager.requestWhenInUseAuthorization()
-//            locationManager.requestLocation()
-//        } else {
-//            print("[MapView] - Requesting Location")
-//        }
-        
-//        if (CLLocationManager.locationServicesEnabled())
-//        {
-//            print("[MapView] Location Enabled")
-//            locationManager.delegate = self
-//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            locationManager.requestAlwaysAuthorization()
-//            locationManager.startUpdatingLocation()
-//        } else {
-//            print("[MapView] Location DISABLED")
-//        }
+
         fetchStudentLocations()
     }
     
     func fetchStudentLocations() {
-        print("[MapVieWController] LOADED")
         var myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         myActivityIndicator.center = self.view.center
         myActivityIndicator.startAnimating()
@@ -151,7 +128,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        print("didChangeAuthorizationStatus")
         switch status {
         case .NotDetermined:
             locationManager.requestAlwaysAuthorization()
