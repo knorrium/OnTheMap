@@ -123,7 +123,11 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="🔄" id="xVo-60-P6L"/>
+                            <barButtonItem title="🔄" id="xVo-60-P6L">
+                                <connections>
+                                    <action selector="refreshAction:" destination="NGw-LB-ela" id="9Be-QA-1R4"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="📍" id="nqn-Hx-fcO">
                                 <connections>
                                     <action selector="enterLocation:" destination="NGw-LB-ela" id="A3i-G9-oJU"/>
@@ -315,6 +319,6 @@
         <image name="logo-udacity-u.png" width="178" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sTD-cI-vrM"/>
+        <segue reference="Bec-su-hT8"/>
     </inferredMetricsTieBreakers>
 </document>

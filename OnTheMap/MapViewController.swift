@@ -11,6 +11,12 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    @IBAction func refreshAction(sender: AnyObject) {
+        appDelegate.students.removeAll()
+        map.removeAnnotations(map.annotations)
+        fetchStudentLocations()
+    }
+    
     @IBOutlet weak var map: MKMapView!
     var locationManager: CLLocationManager!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -61,30 +67,34 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 //        } else {
 //            print("[MapView] Location DISABLED")
 //        }
+        fetchStudentLocations()
+    }
+    
+    func fetchStudentLocations() {
         print("[MapVieWController] LOADED")
         var myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         myActivityIndicator.center = self.view.center
         myActivityIndicator.startAnimating()
         self.view.addSubview(myActivityIndicator)
-
+        
         LocationsClient.sharedInstance.fetchLocations() { (success, errorMessage) in
             print("[FetchLocations] START")
-//            print(success)
-//            print(errorMessage)
+            //            print(success)
+            //            print(errorMessage)
             if success {
                 print("[FetchLocations] Success")
             } else {
                 print("[FetchLocations] Failure")
             }
             print("[FetchLocations] END")
-
+            
             for studentInformation in self.appDelegate.students {
-//                print(studentInformation)
-//                print(studentInformation.latitude)
-//                print(studentInformation.longitude)
+                //                print(studentInformation)
+                //                print(studentInformation.latitude)
+                //                print(studentInformation.longitude)
                 if (studentInformation.latitude != nil && studentInformation.longitude != nil) {
-//                    print("[MapViewController] - InsertPin")
-
+                    //                    print("[MapViewController] - InsertPin")
+                    
                     let coordinate = CLLocationCoordinate2D(
                         latitude: studentInformation.latitude as! Double!,
                         longitude: studentInformation.longitude as! Double!
@@ -92,17 +102,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     let title = studentInformation.firstName! + " " + studentInformation.lastName!
                     let subtitle = studentInformation.mediaURL
                     let annotation = StudentMapAnnotation(title: title, coordinate: coordinate, subtitle: subtitle!)
-//                    self.map.addAnnotation(annotation)
+                    //                    self.map.addAnnotation(annotation)
                     dispatch_async(dispatch_get_main_queue()) {
                         self.map.addAnnotation(annotation)
                     }
                 }
             }
-
+            
         }
-                myActivityIndicator.stopAnimating()
+        myActivityIndicator.stopAnimating()
+
     }
-    
 
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         print(error.description)
