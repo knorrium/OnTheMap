@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -54,13 +55,26 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Value2, reuseIdentifier: nil)
-        
         let student = students![indexPath.row]
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("MyCell", forIndexPath: indexPath) as! PlacesTableViewCell
 
-        cell.textLabel?.text = student.firstName
-        cell.detailTextLabel?.text = student.mediaURL
+        cell.labelUser.text = "\(student.firstName!) \(student.lastName!)"
+        cell.labelURL.text = "\(student.mediaURL!)"
+        cell.labelLocation.text = "\(student.mapString!)"
+
+        let center = CLLocationCoordinate2D(latitude: student.latitude!, longitude: student.longitude!)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+
+        let dropPin = MKPointAnnotation()
+        dropPin.coordinate = center
+        dropPin.title = student.mapString!
+        cell.mapView.addAnnotation(dropPin)
+        
+        cell.mapView.setRegion(region, animated: false)
+        
         return cell
+
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -90,5 +104,4 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Pass the selected object to the new view controller.
     }
     */
-
 }
