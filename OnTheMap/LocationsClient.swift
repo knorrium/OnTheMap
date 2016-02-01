@@ -40,7 +40,6 @@ class LocationsClient: NSObject {
                    for studentInfo in location {
                         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                         appDelegate.students.append(StudentInformation(dictionary: studentInfo))
-                        print(appDelegate.students.count)
                     }
                 }
                 completionHandler(success: true, errorMessage: nil)
@@ -53,7 +52,6 @@ class LocationsClient: NSObject {
     }
     
     func postLocation(student: StudentInformation, completionHandler: (success: Bool, errorMessage: String?) -> Void) {
-        print(student)
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
         
         request.HTTPMethod = "POST"
@@ -72,7 +70,6 @@ class LocationsClient: NSObject {
                 do {
                     let parsedResult: AnyObject!
                     parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-                    print(parsedResult)
                     completionHandler(success: true, errorMessage: nil)
                 } catch {
                     completionHandler(success: false, errorMessage: "Error parsing JSON data")
