@@ -11,69 +11,100 @@ import MapKit
 
 class SubmitViewController: UIViewController, MKMapViewDelegate {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+    var studentInfo = StudentInformation(dictionary: [
+        "uniqueKey": "",
+        "firstName": "",
+        "lastName": "",
+        "latitude": "",
+        "longitude": "",
+        "mediaURL": ""
+        ])
+    
+    @IBOutlet weak var btnSubmit: UIButton!
     
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var txtLocation: UITextField!
     
-    @IBAction func submitLocation(sender: AnyObject) {
+    @IBAction func lookupLocation(sender: AnyObject) {
         if (txtLocation.text != nil && txtLocation.text != "") {
             var geocoder = CLGeocoder()
             geocoder.geocodeAddressString(txtLocation.text!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
                 
-              if error == nil && placemarks!.count > 0 {
-                self.requestMediaURL() { success, mediaURL in
-                    
-                    if (success) {
-                        let placemark = placemarks![0]
-                        let location = placemark.location!
-                        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 20000, 20000)
-                        self.mapView.setRegion(coordinateRegion, animated: true)
-                        var studentInfo = StudentInformation(dictionary: [
-                            "uniqueKey": self.appDelegate.loggedUser.uniqueKey,
-                            "firstName": self.appDelegate.loggedUser.firstName!,
-                            "lastName": self.appDelegate.loggedUser.lastName!,
-                            "latitude": location.coordinate.latitude,
-                            "longitude": location.coordinate.longitude,
-                            "mediaURL": mediaURL!
-                            ])
-                        print(studentInfo)
-                        let annotation = MKPointAnnotation()
-                        annotation.coordinate = location.coordinate
-                        annotation.title = "\(studentInfo.firstName!) \(studentInfo.lastName!)"
-                        annotation.subtitle = studentInfo.mediaURL
+                if error == nil && placemarks!.count > 0 {
+                    self.requestMediaURL() { success, mediaURL in
                         
-                        self.mapView.removeAnnotations(self.mapView.annotations)
-                        self.mapView.addAnnotation(annotation)
-                        
+                        if (success) {
+                            let placemark = placemarks![0]
+                            let location = placemark.location!
+                            let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 20000, 20000)
+                            self.mapView.setRegion(coordinateRegion, animated: true)
+
+                            self.studentInfo.uniqueKey = self.appDelegate.loggedUser.uniqueKey
+                            self.studentInfo.firstName = self.appDelegate.loggedUser.firstName
+                            self.studentInfo.lastName = self.appDelegate.loggedUser.lastName
+                            self.studentInfo.latitude = location.coordinate.latitude
+                            self.studentInfo.longitude = location.coordinate.longitude
+                            self.studentInfo.mapString = self.txtLocation.text
+
+                            
+                            let annotation = MKPointAnnotation()
+                            annotation.coordinate = location.coordinate
+                            annotation.title = "\(self.studentInfo.firstName!) \(self.studentInfo.lastName!)"
+                            annotation.subtitle = self.studentInfo.mediaURL
+                            
+                            self.mapView.removeAnnotations(self.mapView.annotations)
+                            self.mapView.addAnnotation(annotation)
+                            self.btnSubmit.enabled = true
+                            
+                        }
                     }
+                    
                 }
-                
+                else {
+                    let alertController = UIAlertController(title: "On The Map", message:
+                        "There was an error while trying to fetch the address information", preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    })
+                    self.btnSubmit.enabled = false
                 }
-              else {
+            })
+        }
+
+        
+    }
+    @IBAction func submitLocation(sender: AnyObject) {
+        print(studentInfo)
+        LocationsClient.sharedInstance.postLocation(studentInfo) { (success, errorMessage) in
+            if success {
+                print("[PostLocation] Success")
                 let alertController = UIAlertController(title: "On The Map", message:
-                    "There was an error while trying to fetch the address information", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    "Your location has been successfully submitted!", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
                 dispatch_async(dispatch_get_main_queue(), {
                     self.presentViewController(alertController, animated: true, completion: nil)
                 })
 
-                }
-            })
+                self.dismissViewControllerAnimated(true, completion: {});
+            } else {
+                print("[PostLocation] Failure")
+            }
         }
-        
     }
     
     func requestMediaURL(completionHandler: (success: Bool, mediaURL: String?) -> Void){
         print("REQUESTING MEDIA URL")
         var alertController:UIAlertController?
-        alertController = UIAlertController(title: "Enter Text",
-            message: "Enter some text below",
+        alertController = UIAlertController(title: "On The Map",
+            message: "Please enter a website URL",
             preferredStyle: .Alert)
         
         alertController!.addTextFieldWithConfigurationHandler(
             {(textField: UITextField!) in
-                textField.placeholder = "Enter something"
+                textField.placeholder = "(i.e, http://www.udacity.com)"
         })
         
         let action = UIAlertAction(title: "Submit",
@@ -84,7 +115,7 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
                     let theTextFields = textFields as [UITextField]
                     let enteredText = theTextFields[0].text
                     print(enteredText)
-//                    self!.displayLabel.text = enteredText
+                    self!.studentInfo.mediaURL = enteredText
                     self!.appDelegate.loggedUser.mediaURL = enteredText
                     completionHandler(success: true, mediaURL: enteredText)
                 }
