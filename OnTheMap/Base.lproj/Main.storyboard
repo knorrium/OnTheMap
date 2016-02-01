@@ -123,8 +123,8 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Refresh" id="xVo-60-P6L"/>
-                            <barButtonItem title="Location" id="nqn-Hx-fcO">
+                            <barButtonItem title="🔄" id="xVo-60-P6L"/>
+                            <barButtonItem title="📍" id="nqn-Hx-fcO">
                                 <connections>
                                     <action selector="enterLocation:" destination="NGw-LB-ela" id="A3i-G9-oJU"/>
                                     <segue destination="qiy-0B-3mL" kind="presentation" id="Bec-su-hT8"/>
@@ -187,8 +187,8 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Refresh" id="69H-uf-aUv"/>
-                            <barButtonItem title="Location" id="OVL-r1-Kbx">
+                            <barButtonItem title="🔄" id="69H-uf-aUv"/>
+                            <barButtonItem title="📍" id="OVL-r1-Kbx">
                                 <connections>
                                     <segue destination="qiy-0B-3mL" kind="presentation" id="sTD-cI-vrM"/>
                                 </connections>
