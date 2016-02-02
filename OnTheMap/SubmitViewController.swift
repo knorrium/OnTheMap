@@ -81,7 +81,6 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
         
     }
     @IBAction func submitLocation(sender: AnyObject) {
-        print(studentInfo)
         activityIndicator.startAnimating()
         LocationsClient.sharedInstance.postLocation(studentInfo) { (success, errorMessage) in
             if success {
@@ -125,7 +124,7 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
                 if let textFields = alertController?.textFields{
                     let theTextFields = textFields as [UITextField]
                     let enteredText = theTextFields[0].text
-                    print(enteredText)
+                    
                     self!.studentInfo.mediaURL = enteredText
                     self!.appDelegate.loggedUser.mediaURL = enteredText
                     completionHandler(success: true, mediaURL: enteredText)
