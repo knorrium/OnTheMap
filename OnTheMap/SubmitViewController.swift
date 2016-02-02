@@ -12,6 +12,7 @@ import MapKit
 class SubmitViewController: UIViewController, MKMapViewDelegate {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var studentInfo = StudentInformation(dictionary: [
         "uniqueKey": "",
         "firstName": "",
@@ -29,6 +30,7 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func lookupLocation(sender: AnyObject) {
         if (txtLocation.text != nil && txtLocation.text != "") {
+            self.activityIndicator.startAnimating()
             var geocoder = CLGeocoder()
             geocoder.geocodeAddressString(txtLocation.text!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
                 
@@ -36,6 +38,7 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
                     self.requestMediaURL() { success, mediaURL in
                         
                         if (success) {
+                            self.stopActivityIndicator()
                             let placemark = placemarks![0]
                             let location = placemark.location!
                             let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 20000, 20000)
@@ -69,6 +72,7 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.presentViewController(alertController, animated: true, completion: nil)
                     })
+                    self.stopActivityIndicator()
                     self.btnSubmit.enabled = false
                 }
             })
@@ -138,6 +142,12 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
         self.dismissViewControllerAnimated(true, completion: {});
     }
 
+    func stopActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()){
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
