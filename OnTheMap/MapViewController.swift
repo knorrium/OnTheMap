@@ -59,6 +59,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     }
                 }
             } else {
+                let alertController = UIAlertController(title: "On The Map", message:
+                    errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                })
 
             }
         }

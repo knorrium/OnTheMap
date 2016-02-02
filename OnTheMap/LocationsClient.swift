@@ -41,6 +41,8 @@ class LocationsClient: NSObject {
                         let student = StudentInformation.init(dictionary: studentInfo)
                         StudentLocations.students.append(student)
                     }
+                } else {
+                    completionHandler(success: false, errorMessage: "There was a problem with the server response. Please reach out to the developers :)")
                 }
                 completionHandler(success: true, errorMessage: nil)
             } catch {
