@@ -85,7 +85,7 @@ class UdacityLogin: NSObject {
         task.resume()
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        appDelegate.students.removeAll()
+        StudentLocations.students.removeAll()
     }
 
     

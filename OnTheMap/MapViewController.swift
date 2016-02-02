@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func refreshAction(sender: AnyObject) {
-        appDelegate.students.removeAll()
+        StudentLocations.students.removeAll()
         map.removeAnnotations(map.annotations)
         fetchStudentLocations()
     }
@@ -43,7 +43,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         LocationsClient.sharedInstance.fetchLocations() { (success, errorMessage) in
             if success {
-                for studentInformation in self.appDelegate.students {
+                for studentInformation in StudentLocations.students {
                     if (studentInformation.latitude != nil && studentInformation.longitude != nil) {
                         
                         let coordinate = CLLocationCoordinate2D(

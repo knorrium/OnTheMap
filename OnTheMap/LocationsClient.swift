@@ -38,8 +38,8 @@ class LocationsClient: NSObject {
 
                 if let location = parsedResult["results"] as? [NSDictionary] {
                    for studentInfo in location {
-                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                        appDelegate.students.append(StudentInformation(dictionary: studentInfo))
+                        let student = StudentInformation.init(dictionary: studentInfo)
+                        StudentLocations.students.append(student)
                     }
                 }
                 completionHandler(success: true, errorMessage: nil)
