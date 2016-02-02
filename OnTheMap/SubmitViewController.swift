@@ -82,8 +82,10 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
     }
     @IBAction func submitLocation(sender: AnyObject) {
         print(studentInfo)
+        activityIndicator.startAnimating()
         LocationsClient.sharedInstance.postLocation(studentInfo) { (success, errorMessage) in
             if success {
+                self.stopActivityIndicator()
                 let alertController = UIAlertController(title: "On The Map", message:
                     "Your location has been successfully submitted!", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
@@ -93,6 +95,13 @@ class SubmitViewController: UIViewController, MKMapViewDelegate {
 
                 self.dismissViewControllerAnimated(true, completion: {});
             } else {
+                self.stopActivityIndicator()
+                let alertController = UIAlertController(title: "On The Map", message:
+                    "There was a problem submitting your location, please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                })
 
             }
         }
